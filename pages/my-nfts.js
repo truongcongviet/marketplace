@@ -61,7 +61,7 @@ export default function MyAssets() {
                 <img src={nft.image} className="rounded" />
                 <div className="p-4 bg-black">
                   <p className="text-2xl font-bold text-white">Price - {nft.price} Eth</p>
-                  <button className="mt-4 w-full bg-purple-300 text-black font-bold py-2 px-12 rounded" onClick={() => listNFT(nft)}>List</button>
+                  <button className="mt-4 w-full bg-gradient-to-r from-blue-700 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-black font-bold py-2 px-12 rounded" onClick={() => listNFT(nft)}>List</button>
                 </div>
               </div>
             ))

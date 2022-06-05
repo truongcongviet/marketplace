@@ -73,7 +73,7 @@ export default function CreateItem() {
 
   return (
     <div className="flex justify-center">
-      <div className="w-1/2 flex flex-col pb-12">
+      <div className="w-1/2 flex flex-col bg-gradient-to-b from-blue-300 to-blue-200 rounded p-3 mt-8">
         <input 
           placeholder="Asset Name"
           className="mt-8 border rounded p-4"
@@ -101,7 +101,7 @@ export default function CreateItem() {
             <img className="rounded mt-4" width="350" src={fileUrl} />
           )
         }
-        <button onClick={listNFTForSale} className="font-bold mt-4 bg-purple-300 text-black hover:bg-purple-400 rounded p-4 shadow-lg">
+        <button onClick={listNFTForSale} className="font-bold mt-4 bg-gradient-to-r from-blue-700 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-black rounded p-4 shadow-lg">
           Create NFT
         </button>
       </div>

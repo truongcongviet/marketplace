@@ -11,7 +11,7 @@ import {
   marketplaceAddress
 } from '../config'
 
-export default function Home() {
+export default function Home({...props}) {
   const [nfts, setNfts] = useState([])
   const [loadingState, setLoadingState] = useState('not-loaded')
   const [alert,setAlert] = useState(null);
@@ -21,6 +21,8 @@ export default function Home() {
   useEffect(() => {
     loadNFTs()
   }, [])
+
+  
   async function loadNFTs() {
     /* create a generic provider and query for unsold market items */
     const provider = new ethers.providers.JsonRpcProvider()
@@ -71,11 +73,13 @@ export default function Home() {
         value: price
       })
       await transaction.wait()
+      let updateBalance = Number(totalBalance.toString())/10**18 - Number(price)/10**18;
+      localStorage.setItem('balance', updateBalance);
     } else {
       Swal.fire({
         title: 'Error',
         text: 'Your account not enough ETH to buy NFT',
-        confirmButtonText: 'Quit',
+        confirmButtonText: 'Close',
         showCloseButton: true
       })
     }
@@ -83,25 +87,25 @@ export default function Home() {
     
     loadNFTs()
   }
-  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl">No items in marketplace</h1>)
+  if (loadingState === 'loaded' && !nfts.length) return (<h1 className="px-20 py-10 text-3xl text-white">No items in marketplace</h1>)
   return (
     <div className="flex justify-center">
       <div className="px-4" style={{ maxWidth: '1600px' }}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
           {
             nfts.map((nft, i) => (
-              <div key={i} className="border shadow rounded-xl overflow-hidden">
-                <img src={nft.image} />
+              <div key={i} className="border shadow rounded-xl overflow-hidden bg-white">
+                <img src={nft.image} className="w-full h-[250px]"/>
                 <div className="p-4">
                   <p style={{ height: '64px' }} className="text-2xl font-semibold">{nft.name}</p>
                   <div style={{ height: '70px', overflow: 'hidden' }}>
                     <p className="text-gray-400">{nft.description}</p>
                   </div>
                 </div>
-                <div className="p-4 bg-gray-400">
-                  <p className="text-2xl font-bold text-black flex">{nft.price} <img src="./ether.png" className="w-4 ml-2"/></p>
+                <div className="p-4 bg-indigo-300">
+                  <p className="text-2xl font-bold text-black flex items-center">{nft.price} <img src="./ether.png" className="w-3 h-6 ml-2"/></p>
                   
-                  <button className="mt-4 w-full bg-purple-300 text-black font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
+                  <button className="mt-4 w-full bg-gradient-to-r from-blue-700 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-black font-bold py-2 px-12 rounded" onClick={() => buyNft(nft)}>Buy</button>
                 </div>
               </div>
             ))
